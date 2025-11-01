@@ -1,0 +1,580 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+/* Modern CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --dark-bg: #0f0f23;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --text-light: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --glow-color: #00f2fe;
+}
+
+/* Global Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(0, 242, 254, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(0, 242, 254, 0.6); }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Banner Section */
+.banner_w3lspvt {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner_w3lspvt::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="white" opacity="0.1"/><circle cx="80" cy="40" r="1" fill="white" opacity="0.1"/><circle cx="40" cy="80" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    animation: float 6s ease-in-out infinite;
+}
+
+.banner-top {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+}
+
+.w3layouts-banner-info {
+    animation: fadeInUp 1s ease-out;
+}
+
+.w3layouts-banner-info h3 {
+    font-size: 4.5rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, #ffffff, #00f2fe, #ffffff);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 2s ease-in-out infinite, pulse 3s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    margin-bottom: 1rem;
+}
+
+.banner-subtitle {
+    font-size: 1.4rem;
+    color: var(--text-light);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.questions-container {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    animation: fadeInUp 1s ease-out 0.6s both;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.questions-title {
+    font-size: 1.8rem;
+    color: var(--glow-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.question-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    background: rgba(166, 245, 9, 0.62);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    animation: slideInLeft 0.8s ease-out calc(var(--delay) * 0.2s) both;
+}
+
+.question-item:hover {
+    background: rgba(0, 242, 254, 0.1);
+    transform: translateX(10px);
+    box-shadow: 0 10px 20px rgba(0, 242, 254, 0.2);
+}
+
+.question-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--success-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* About Section */
+.core-value {
+    background: var(--dark-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.core-value::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 30% 20%, rgba(102, 126, 234, 0.1) 0%, transparent 70%),
+                radial-gradient(circle at 70% 80%, rgba(240, 147, 251, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.core-left img {
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    animation: slideInLeft 1s ease-out;
+}
+
+.core-left img:hover {
+    transform: scale(1.05) rotate(2deg);
+    box-shadow: 0 30px 60px rgba(102, 126, 234, 0.3);
+}
+
+.core-right {
+    color: var(--text-light);
+    animation: slideInRight 1s ease-out;
+}
+
+.core-right h3 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--glow-color);
+}
+
+.core-right p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+}
+
+/* Services Section */
+.blog {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    position: relative;
+}
+
+.services-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: fadeInUp 1s ease-out calc(var(--delay) * 0.2s) both;
+    position: relative;
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-20px) scale(1.02);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.service-card:hover::before {
+    opacity: 0.1;
+}
+
+.service-card:nth-child(2) {
+    --delay: 1;
+}
+
+.service-card:nth-child(3) {
+    --delay: 2;
+}
+
+.service-image {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img {
+    transform: scale(1.1);
+}
+
+.service-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.service-info {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.service-info h4 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--glow-color);
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.service-card:hover .service-info h4 {
+    color: white;
+}
+
+.service-info p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.service-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .w3layouts-banner-info h3 {
+        font-size: 3rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .services-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .questions-container {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+}
+
+/* Loading Animation */
+.loading-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--dark-bg);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid var(--glow-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
+
+<!-- Loading Animation -->
+<div class="loading-animation" id="loadingAnimation">
+    <div class="spinner"></div>
+</div>
+
+<!-- Banner Section -->
+<section class="banner_w3lspvt" id="home">
+    <div class="banner-top">
+        <div class="container">
+            <div class="w3layouts-banner-info text-center">
+                <h3>Krishi.AI</h3>
+                <div class="banner-subtitle">
+                    Get informed decisions about your farming strategy with AI-powered insights
+                </div>
+                
+                <div class="questions-container">
+                    <h4 class="questions-title">What We Help You Discover</h4>
+                    <div class="question-item" style="--delay: 0;">
+                        <div class="question-icon">1</div>
+                        <span>What crop to plant in your specific region?</span>
+                    </div>
+                    <div class="question-item" style="--delay: 1;">
+                        <div class="question-icon">2</div>
+                        <span>Which fertilizer will maximize your yield?</span>
+                    </div>
+                    <div class="question-item" style="--delay: 2;">
+                        <div class="question-icon">3</div>
+                        <span>What diseases are affecting your crops?</span>
+                    </div>
+                    <div class="question-item" style="--delay: 3;">
+                        <div class="question-icon">4</div>
+                        <span>How to treat and prevent crop diseases?</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="core-value py-5">
+    <div class="container py-md-4">
+        <h3 class="section-title">About Us</h3>
+        <div class="row core-grids align-items-center">
+            <div class="col-lg-6 core-left mb-4 mb-lg-0">
+                <img src="{{ url_for('static', filename='images/core.jpg') }}" class="img-fluid" alt="About Krishi.AI" />
+            </div>
+            <div class="col-lg-6 core-right">
+                <h3>Revolutionizing Agriculture Through AI</h3>
+                <p>We harness cutting-edge machine learning and deep learning technologies to transform farming practices. Our intelligent platform guides you through every step of the agricultural process, from soil analysis to harvest optimization.</p>
+                <p>Make data-driven decisions that consider your local environment, understand the complex factors affecting crop health, and maintain optimal growing conditions for exceptional yields and sustainable farming success.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="blog py-5">
+    <div class="container py-md-5">
+        <h3 class="section-title">Our AI-Powered Services</h3>
+        <div class="services-container">
+            <a href="{{ url_for('crop_recommend') }}" class="service-link">
+                <div class="service-card" style="--delay: 0;">
+                    <div class="service-image">
+                        <img src="{{ url_for('static', filename='images/s3.jpg') }}" alt="Crop Recommendation" />
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-info">
+                        <h4>🌱 Smart Crop Recommendation</h4>
+                        <p>Get AI-powered recommendations for the most suitable crops based on your soil conditions, climate data, and regional factors for maximum profitability.</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('fertilizer_recommendation') }}" class="service-link">
+                <div class="service-card" style="--delay: 1;">
+                    <div class="service-image">
+                        <img src="{{ url_for('static', filename='images/s2.jpg') }}" alt="Fertilizer Recommendation" />
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-info">
+                        <h4>🧪 Precision Fertilizer Analysis</h4>
+                        <p>Receive customized fertilizer recommendations optimized for your specific soil composition and chosen crops to enhance growth and sustainability.</p>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="{{ url_for('disease_prediction') }}" class="service-link">
+                <div class="service-card" style="--delay: 2;">
+                    <div class="service-image">
+                        <img src="{{ url_for('static', filename='images/s4.jpg') }}" alt="Disease Prediction" />
+                        <div class="service-overlay"></div>
+                    </div>
+                    <div class="service-info">
+                        <h4>🔬 Intelligent Disease Detection</h4>
+                        <p>Advanced image recognition technology identifies crop diseases early, providing detailed treatment plans and prevention strategies to protect your harvest.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// Enhanced JavaScript for animations and interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide loading animation
+    const loadingAnimation = document.getElementById('loadingAnimation');
+    setTimeout(() => {
+        loadingAnimation.style.opacity = '0';
+        setTimeout(() => {
+            loadingAnimation.style.display = 'none';
+        }, 300);
+    }, 1000);
+    
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationDelay = '0s';
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all animated elements
+    document.querySelectorAll('.service-card, .core-left, .core-right').forEach(el => {
+        observer.observe(el);
+    });
+    
+    // Add smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Parallax effect for banner
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelector('.banner_w3lspvt::before');
+        const speed = scrolled * 0.5;
+        
+        if (parallax) {
+            parallax.style.transform = `translateY(${speed}px)`;
+        }
+    });
+    
+    // Dynamic gradient animation
+    let gradientPosition = 0;
+    setInterval(() => {
+        gradientPosition += 1;
+        const title = document.querySelector('.w3layouts-banner-info h3');
+        if (title) {
+            title.style.backgroundPosition = `${gradientPosition}% 50%`;
+        }
+    }, 100);
+});
+
+// Add floating particles effect
+function createFloatingParticles() {
+    const banner = document.querySelector('.banner_w3lspvt');
+    for (let i = 0; i < 20; i++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'absolute';
+        particle.style.width = Math.random() * 4 + 2 + 'px';
+        particle.style.height = particle.style.width;
+        particle.style.background = 'rgba(255, 255, 255, 0.5)';
+        particle.style.borderRadius = '50%';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.animation = `float ${Math.random() * 3 + 2}s ease-in-out infinite`;
+        particle.style.animationDelay = Math.random() * 2 + 's';
+        banner.appendChild(particle);
+    }
+}
+
+// Initialize particles
+setTimeout(createFloatingParticles, 1000);
+</script>
+
+{% endblock %}

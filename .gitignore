@@ -1,0 +1,47 @@
+Data_to_consider/
+References/
+TEST_Project/
+.ipynb_checkpoints/
+.vscode/
+__pycache__/
+New Plant Diseases Dataset(Augmented)/
+Docs/
+
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual envs
+.env
+.venv/
+venv/
+env/
+
+# Packages / caches
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDEs
+.vscode/
+.idea/
+
+# Data, models, large files
+/data/
+models/
+*.pkl
+*.pth
+/static/models/*.glb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config / secrets
+config.py

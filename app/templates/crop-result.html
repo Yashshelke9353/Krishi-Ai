@@ -1,0 +1,511 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<style>
+/* Modern CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --accent-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --dark-bg: #0f0f23;
+    --card-bg: rgba(255, 255, 255, 0.1);
+    --text-light: rgba(255, 255, 255, 0.9);
+    --text-muted: rgba(255, 255, 255, 0.7);
+    --glow-color: #00f2fe;
+    --success-color: #4ade80;
+}
+
+/* Page Background */
+body {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+/* Floating Animation Keyframes */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes glow {
+    0%, 100% { 
+        box-shadow: 0 0 30px rgba(0, 242, 254, 0.3),
+                    0 0 60px rgba(0, 242, 254, 0.1);
+    }
+    50% { 
+        box-shadow: 0 0 50px rgba(0, 242, 254, 0.5),
+                    0 0 80px rgba(0, 242, 254, 0.2);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Main Container */
+.result-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Particles */
+.result-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(102, 126, 234, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 80% 70%, rgba(240, 147, 251, 0.1) 0%, transparent 60%),
+                radial-gradient(circle at 40% 80%, rgba(0, 242, 254, 0.1) 0%, transparent 60%);
+    animation: float 8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* Result Card */
+.result-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(30px);
+    border-radius: 30px;
+    padding: 4rem 3rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+    animation: scaleIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.result-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent, rgba(0, 242, 254, 0.1), transparent);
+    animation: spin 4s linear infinite;
+    pointer-events: none;
+}
+
+.result-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--card-bg);
+    backdrop-filter: blur(30px);
+    border-radius: 30px;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Content Styling */
+.result-content {
+    position: relative;
+    z-index: 2;
+}
+
+.success-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--success-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 2rem auto;
+    font-size: 3rem;
+    animation: pulse 2s ease-in-out infinite;
+    box-shadow: 0 20px 40px rgba(74, 222, 128, 0.3);
+}
+
+.result-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.crop-name {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 1rem 0;
+    animation: glow 2s ease-in-out infinite, fadeInUp 1s ease-out 0.6s both;
+    text-shadow: 0 0 30px rgba(250, 112, 154, 0.3);
+    position: relative;
+}
+
+.crop-name::before {
+    content: '✨';
+    position: absolute;
+    left: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.crop-name::after {
+    content: '🌱';
+    position: absolute;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    animation: sparkle 2s ease-in-out infinite 0.5s;
+}
+
+.farm-text {
+    font-size: 2.2rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    animation: fadeInUp 1s ease-out 0.9s both;
+}
+
+.recommendation-subtitle {
+    font-size: 1.3rem;
+    color: var(--glow-color);
+    margin-top: 2rem;
+    font-weight: 400;
+    animation: slideInLeft 1s ease-out 1.2s both;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 3rem;
+    animation: fadeInUp 1s ease-out 1.5s both;
+}
+
+.btn-modern {
+    padding: 1rem 2.5rem;
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.btn-modern:hover::before {
+    left: 100%;
+}
+
+.btn-modern:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: var(--secondary-gradient);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 15px 30px rgba(240, 147, 251, 0.4);
+}
+
+/* Floating Elements */
+.floating-element {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.float-1 {
+    top: 10%;
+    left: 10%;
+    font-size: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.float-2 {
+    top: 20%;
+    right: 15%;
+    font-size: 1.5rem;
+    animation: float 4s ease-in-out infinite 1s;
+}
+
+.float-3 {
+    bottom: 20%;
+    left: 15%;
+    font-size: 2.5rem;
+    animation: float 3.5s ease-in-out infinite 0.5s;
+}
+
+.float-4 {
+    bottom: 15%;
+    right: 20%;
+    font-size: 1.8rem;
+    animation: float 4.5s ease-in-out infinite 1.5s;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .result-card {
+        padding: 3rem 2rem;
+        margin: 1rem;
+    }
+    
+    .result-title {
+        font-size: 2rem;
+    }
+    
+    .crop-name {
+        font-size: 2.5rem;
+    }
+    
+    .farm-text {
+        font-size: 1.6rem;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .crop-name::before,
+    .crop-name::after {
+        display: none;
+    }
+}
+
+/* Loading Effect */
+.result-card {
+    opacity: 0;
+    animation: scaleIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.3s forwards;
+}
+</style>
+
+<div class="result-container">
+    <!-- Floating Decorative Elements -->
+    <div class="floating-element float-1">🌾</div>
+    <div class="floating-element float-2">🌻</div>
+    <div class="floating-element float-3">🚜</div>
+    <div class="floating-element float-4">🌽</div>
+    
+    <div class="result-card">
+        <div class="result-content">
+            <div class="success-icon">
+                ✅
+            </div>
+            
+            <h1 class="result-title">
+                Perfect Match Found!
+            </h1>
+            
+            <div class="recommendation-subtitle">
+                Based on your soil and climate conditions, we recommend:
+            </div>
+            
+            <div class="crop-name">
+                {{ prediction }}
+            </div>
+            
+            <p class="farm-text">
+                for your farm
+            </p>
+            
+            <div class="recommendation-subtitle">
+                This crop is optimally suited for maximum yield and profitability in your region
+            </div>
+            
+            <div class="action-buttons">
+                <a href="{{ url_for('crop_recommend') }}" class="btn-modern">
+                    🔄 Try Another Recommendation
+                </a>
+                <a href="{{ url_for('fertilizer_recommendation') }}" class="btn-modern btn-secondary">
+                    🧪 Get Fertilizer Advice
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add sparkle effects
+    function createSparkles() {
+        const cropName = document.querySelector('.crop-name');
+        const sparkleCount = 6;
+        
+        for (let i = 0; i < sparkleCount; i++) {
+            const sparkle = document.createElement('span');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.fontSize = '1rem';
+            sparkle.style.color = '#fbbf24';
+            sparkle.style.animation = `sparkle 2s ease-in-out infinite ${Math.random() * 2}s`;
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.pointerEvents = 'none';
+            cropName.style.position = 'relative';
+            cropName.appendChild(sparkle);
+        }
+    }
+    
+    // Initialize sparkles after a delay
+    setTimeout(createSparkles, 1000);
+    
+    // Add celebration effect
+    function celebrate() {
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#6c5ce7'];
+        const emojis = ['🎉', '🌟', '✨', '🎊'];
+        
+        for (let i = 0; i < 20; i++) {
+            const confetti = document.createElement('div');
+            confetti.innerHTML = Math.random() > 0.5 ? emojis[Math.floor(Math.random() * emojis.length)] : '●';
+            confetti.style.position = 'fixed';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.fontSize = Math.random() * 20 + 10 + 'px';
+            confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+            confetti.style.pointerEvents = 'none';
+            confetti.style.zIndex = '1000';
+            
+            document.body.appendChild(confetti);
+            
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+    }
+    
+    // Add fall animation for confetti
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fall {
+            from {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Trigger celebration after card appears
+    setTimeout(celebrate, 1200);
+    
+    // Add hover effects to buttons
+    document.querySelectorAll('.btn-modern').forEach(btn => {
+        btn.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Typewriter effect for crop name (optional enhancement)
+    const cropNameElement = document.querySelector('.crop-name');
+    const originalText = cropNameElement.textContent;
+    
+    function typeWriter(text, element, speed = 100) {
+        element.textContent = '';
+        let i = 0;
+        
+        function type() {
+            if (i < text.length) {
+                element.textContent += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        
+        type();
+    }
+    
+    // Start typewriter effect after initial animations
+    setTimeout(() => {
+        typeWriter(originalText, cropNameElement, 80);
+    }, 2000);
+});
+</script>
+
+{% endblock %}
