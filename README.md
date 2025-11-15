@@ -1,14 +1,10 @@
-Great — I’ll create a **complete, professional, production-ready GitHub README** for your **KrishiAI project**, using a structure similar to the sample you shared, but fully **original** and tailored for a typical AI-powered agriculture system.
-
-If you want changes later (more technical, shorter, more images, etc.) I can update it.
-
----
-
 # 🌾 **KrishiAI – Intelligent Farming Assistant**
 
 KrishiAI is an AI-powered multi-agent system designed to assist farmers with smart decision-making across crop planning, disease detection, fertilizer management, and weather-aware recommendations. Built with a modular architecture, KrishiAI automates agricultural analysis and provides personalized insights to help farmers increase yield, reduce losses, and adopt sustainable practices.
 
 ---
+![Uploading image.png…]()
+
 
 ## 🧩 **Problem Statement**
 
